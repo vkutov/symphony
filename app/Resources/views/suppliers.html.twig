@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <table border="1px">
+        <tr>
+            <th>Name</th>
+            <th>Number of supplying parts</th>
+        </tr>
+        {# @var supply \CarDealerBundle\Entity\Suppliers#}
+        {% for supply in suppliers %}
+            <tr>
+                <td>{{ supply.name }}</td>
+                <td>{{ supply.parts.count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+

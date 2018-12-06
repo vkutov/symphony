@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Car DB exercise!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    <h1>Cars DB Exercise</h1>
+    <ul>
+        <li><a href="{{ path('homepage') }}">Home</a></li>
+        <li><a href="{{ path('customers_index') }}">Customers</a></li>
+        <li><a href="{{ path('cars_index') }}">Cars</a></li>
+        <li><a href="{{ path('suppliers_index') }}">Suppliers</a></li>
+        <li><a href="{{ path('all_sales') }}">Sales</a></li>
+    </ul>
+    <hr>
+    <h3>Please use the navigation bar to browse Our Database</h3>
+
+    {% block body %}{% endblock %}
+    {% block footer %}
+        <hr/>
+        <p>Software University 2018</p>
+    {% endblock %}
+    
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

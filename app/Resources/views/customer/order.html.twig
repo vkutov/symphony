@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table border="1">
+        <th>name</th>
+        <th>birth date</th>
+        <th>young driver</th>
+        {% for orderedC in orderedCs %}
+
+        <tr>
+            <td>{{ orderedC.name }}</td>
+            <td>{{ orderedC.birthDate|date("Y:m:D") }}</td>
+            <td>{{ orderedC.isYoungDriver }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+

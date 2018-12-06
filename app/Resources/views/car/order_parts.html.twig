@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table border="1">
+        <th>make</th>
+        <th>model</th>
+        <th>travelled distance</th>
+        <th>part name</th>
+        <th>part price</th>
+
+        {% for getPart in getCar %}
+
+            <tr>
+                <td>{{ getPart.make }}</td>
+                <td>{{ getPart.model}}</td>
+                <td>{{ getPart.travelledDistance}}</td>
+
+                <td>{{ getPart.parts.name}}</td>
+                <td>{{ getPart.price}}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
