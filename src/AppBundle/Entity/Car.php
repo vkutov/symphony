@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Car
+ * Cars
  *
  * @ORM\Table(name="cars")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CarRepository")
@@ -37,6 +37,16 @@ class Car
     private $model;
 
     /**
+     * @var ArrayCollection|Part[]
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Part")
+     * @ORM\JoinTable(name="cars_parts",
+     *      joinColumns={@ORM\JoinColumn(name="car_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="part_id", referencedColumnName="id")}
+     *      )
+     */
+    private $parts;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="travelledDistance", type="bigint")
@@ -44,18 +54,14 @@ class Car
     private $travelledDistance;
 
     /**
-     * @var ArrayCollection|Part[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Part")
-     * @ORM\JoinTable(name="cars_parts",
-     *     joinColumns={@ORM\JoinColumn(name="car_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="part_id", referencedColumnName="id")})
+     * @var float
      */
-    private $parts;
-
+    private $costOfParts;
     /**
      * Car constructor.
+     * @param Part[]|ArrayCollection $parts
      */
-    public function __construct()
+    public function __construct($parts)
     {
         $this->parts = new ArrayCollection();
     }
@@ -152,12 +158,34 @@ class Car
     }
 
     /**
-     * @param $part
+     * @param Part[]|ArrayCollection $parts
      */
-    public function addPart($part)
+    public function setParts($parts)
     {
-        $this->parts[] = $part;
+        $this->parts = $parts;
     }
+    /**
+     * @return float
+     */
+    public function getCostOfParts(): float
+    {
+        $this->setCostOfParts();
+        return $this->costOfParts;
+    }
+    public function setCostOfParts()
+    {
+        $carParts=$this->getParts();
+        $total=0;
+        /** @var Part $part */
+        foreach ($carParts as $part){
+            $total+=$part->getPrice();
+        }
+        $this->costOfParts = $total;
+
+        return $this;
+    }
+
+
 
 
 }

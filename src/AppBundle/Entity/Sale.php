@@ -29,15 +29,14 @@ class Sale
     private $discount;
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Car")
-     * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="car_id",referencedColumnName="id")
      */
-private $car;
-
+    private $car;
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer", inversedBy="sales")
+     *@ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer",inversedBy="sales")
+    * @ORM\JoinColumn(name="customer_id",referencedColumnName="id")
      */
-private $customer;
-
+    private $customer;
     /**
      * Get id
      *
@@ -81,14 +80,6 @@ private $customer;
     }
 
     /**
-     * @param mixed $car
-     */
-    public function setCar($car)
-    {
-        $this->car = $car;
-    }
-
-    /**
      * @return mixed
      */
     public function getCustomer()
@@ -99,11 +90,9 @@ private $customer;
     /**
      * @param mixed $customer
      */
-    public function setCustomer($customer)
+    public function setCustomer($customer): void
     {
         $this->customer = $customer;
     }
-
-
 }
 

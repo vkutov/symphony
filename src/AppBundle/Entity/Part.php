@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Part
+ * part
  *
  * @ORM\Table(name="parts")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PartRepository")
@@ -32,7 +32,7 @@ class Part
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=0)
      */
     private $price;
 
@@ -42,27 +42,24 @@ class Part
      * @ORM\Column(name="quantity", type="integer")
      */
     private $quantity;
-
-
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Supplier", inversedBy="parts")
      */
     private $supplier;
-
     /**
      * @var ArrayCollection|Car[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Car", mappedBy="parts")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Car",mappedBy="")
      */
     private $cars;
 
     /**
      * Part constructor.
+     * @param Car[]|ArrayCollection $cars
      */
-    public function __construct()
+    public function __construct($cars)
     {
         $this->cars = new ArrayCollection();
     }
-
 
     /**
      * Get id
@@ -79,7 +76,7 @@ class Part
      *
      * @param string $name
      *
-     * @return Part
+     * @return part
      */
     public function setName($name)
     {
@@ -103,7 +100,7 @@ class Part
      *
      * @param string $price
      *
-     * @return Part
+     * @return part
      */
     public function setPrice($price)
     {
@@ -127,7 +124,7 @@ class Part
      *
      * @param integer $quantity
      *
-     * @return Part
+     * @return part
      */
     public function setQuantity($quantity)
     {
@@ -171,18 +168,16 @@ class Part
     }
 
     /**
-     * @param $car
+     * @param Car[]|ArrayCollection $cars
      */
-    public function addCar($car)
+    public function setCars($cars)
     {
-        $this->cars[] = $car;
+        $this->cars = $cars;
+    }
+    public function __toString()
+    {
+        return "$this->getQuantity()";
     }
 
-    public function getCarId()
-    {
-        foreach ($this->cars as $car){
-            return $car->getId();
-        }
-    }
 }
 

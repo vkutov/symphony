@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Supplier
+ * supplier
  *
  * @ORM\Table(name="suppliers")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SupplierRepository")
@@ -35,17 +35,17 @@ class Supplier
      * @ORM\Column(name="isImporter", type="boolean")
      */
     private $isImporter;
-
     /**
-     * @var ArrayCollection|Part[]
+     * @var ArrayCollection | Part[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Part", mappedBy="supplier")
      */
-    private $parts;
+    public $parts;
 
     /**
      * Supplier constructor.
+     * @param Part[]|ArrayCollection $parts
      */
-    public function __construct()
+    public function __construct($parts)
     {
         $this->parts = new ArrayCollection();
     }
@@ -65,7 +65,7 @@ class Supplier
      *
      * @param string $name
      *
-     * @return Supplier
+     * @return supplier
      */
     public function setName($name)
     {
@@ -89,7 +89,7 @@ class Supplier
      *
      * @param boolean $isImporter
      *
-     * @return Supplier
+     * @return supplier
      */
     public function setIsImporter($isImporter)
     {
@@ -113,27 +113,16 @@ class Supplier
      */
     public function getParts()
     {
-
         return $this->parts;
     }
 
     /**
-     * @return int
+     * @param Part[]|ArrayCollection $parts
      */
-    public function getNumber()
+    public function setParts($parts)
     {
-
-        return sizeof($this->parts);
+        $this->parts = $parts;
     }
-
-    /**
-     * @param $part
-     */
-    public function addPart($part)
-    {
-        $this->parts[] = $part;
-    }
-
 
 }
 

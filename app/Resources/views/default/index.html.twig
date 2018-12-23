@@ -1,11 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block main %}
+    {#<div class="container body-content">#}
+        {#<div class="row">#}
+            {#{% for article in articles %}#}
+                {#<div class="col-md-6">#}
+                    {#<article>#}
+                        {#<header>#}
+                            {#<h2>{{ article.title }}</h2>#}
+                        {#</header>#}
 
-    <h1>Welcome to CarsDB exercise for PHP WEB 2018 in <a href="https://softuni.bg" target="_blank">SoftUni</a> </h1>
+                        {#<p>#}
+                            {#{{ article.summary }}#}
+                        {#</p>#}
 
-{% endblock %}
+                        {#<small class="author">#}
+                            {#{{ article.author }}#}
+                        {#</small>#}
 
-{% block stylesheets %}
+                        {#<footer>#}
+                            {#<div class="pull-right">#}
+                                {#<a class="btn btn-default btn-xs"#}
+                                   {#href="{{ path('article_view',{'id':article.id}) }}">Read more &raquo;</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+                    {#</article>#}
+                {#</div>#}
+            {#{% endfor %}#}
+        {#</div>#}
+    {#</div>#}
 
 {% endblock %}

@@ -3,48 +3,45 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Car;
-use AppBundle\Entity\Part;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Car controller.
  *
- * @Route("/cars")
+ * @Route("car")
  */
 class CarController extends Controller
 {
     /**
-     * @Route("/{make}", name="cars_makes")
-     * @param $make
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Lists all car entities.
+     *
+     * @Route("/", name="car_index")
+     * @Method("GET")
      */
-public function getCarByMake($make){
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
 
-    $orderMakes = $this
-        ->getDoctrine()
-        ->getRepository(Car::class)
-        ->findBy(['make'=>$make], ['model'=>'asc', 'travelledDistance'=>'desc']);
+        $cars = $em->getRepository('AppBundle:Car')->findAll();
 
-    return $this->render("car/order.html.twig", ['orderMakes' => $orderMakes]);
-
-}
-
+        return $this->render('car/index.html.twig', array(
+            'cars' => $cars,
+        ));
+    }
 
     /**
-     * @Route("/{id}/parts", name="cars_parts")
-     * @param int $id
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Finds and displays a car entity.
+     *
+     * @Route("/{id}", name="car_show")
+     * @Method("GET")
      */
-    public function getCarByParts( $id){
+    public function showAction(Car $car)
+    {
 
-        $getCar = $this
-            ->getDoctrine()
-            ->getRepository(Car::class)
-            ->getPartsByCar($id);
-
-
-        return $this->render("car/order_parts.html.twig", ['getCar' => $getCar]);
-
+        return $this->render('car/show.html.twig', array(
+            'car' => $car,
+        ));
     }
 }

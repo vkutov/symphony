@@ -4,10 +4,9 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
- * Customer
+ * customer
  *
  * @ORM\Table(name="customers")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CustomerRepository")
@@ -31,29 +30,33 @@ class Customer
     private $name;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      *
      * @ORM\Column(name="birthDate", type="date")
      */
     private $birthDate;
-
     /**
+     * @var ArrayCollection Sale[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale", mappedBy="customer")
+     */
+    private $sales;
+    /**
+     * @var ArrayCollection Car[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Car", mappedBy="customer")
+     */
+    private $cars;
+    /**
+     * @var bool
      *
-     * @var int
-     * @ORM\Column(name="isYoungDriver")
+     * @ORM\Column(name="isYoungDriver", type="boolean")
      */
     private $isYoungDriver;
 
     /**
-     * @var ArrayCollection|Sale[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale", mappedBy="customer")
-     */
-    private $sales;
-
-    /**
      * Customer constructor.
+     * @param ArrayCollection $sales
      */
-    public function __construct()
+    public function __construct(ArrayCollection $sales)
     {
         $this->sales = new ArrayCollection();
     }
@@ -74,7 +77,7 @@ class Customer
      *
      * @param string $name
      *
-     * @return Customer
+     * @return customer
      */
     public function setName($name)
     {
@@ -94,11 +97,11 @@ class Customer
     }
 
     /**
-     * Set birtDate
+     * Set birthDate
      *
      * @param \DateTime $birthDate
      *
-     * @return Customer
+     * @return customer
      */
     public function setBirthDate($birthDate)
     {
@@ -108,9 +111,9 @@ class Customer
     }
 
     /**
-     * Get birtDate
+     * Get birthDate
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getBirthDate()
     {
@@ -122,7 +125,7 @@ class Customer
      *
      * @param boolean $isYoungDriver
      *
-     * @return Customer
+     * @return customer
      */
     public function setIsYoungDriver($isYoungDriver)
     {
@@ -142,7 +145,7 @@ class Customer
     }
 
     /**
-     * @return Sale[]|ArrayCollection
+     * @return ArrayCollection
      */
     public function getSales()
     {
@@ -150,13 +153,47 @@ class Customer
     }
 
     /**
-     * @param $sale
+     * @param ArrayCollection $sales
      */
-    public function addSale($sale)
+    public function setSales(ArrayCollection $sales): void
     {
-        $this->sales[] = $sale;
+        $this->sales = $sales;
+    }
+    public function __toString()
+    {
+        return $this->getBirthDate()->format('Y-m-d H:i:s') ;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getCars()
+    {
+        return $this->cars;
+    }
 
+    /**
+     * @param ArrayCollection $cars
+     */
+    public function setCars(ArrayCollection $cars): void
+    {
+        $this->cars = $cars;
+    }
+//    public function getCostOfParts(): float
+//    {
+//        $this->setCostOfParts();
+//        return $this->costOfParts;
+//    }
+//    public function carsBought()
+//    {
+//        return $this->getCars()->count();
+//        var_dump($carsBought);die();
+//        $total=0;
+//        /** @var Car $car */
+//        foreach ($carsBought as $car){
+//            $total++;
+//        }
+//        return $total;
+//    }
 }
 

@@ -1,10 +1,10 @@
 {
-    "name": "delyan/.checkout",
+    "name": "dell/.checkout",
     "license": "proprietary",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "CarDealerBundle\\": "src/CarDealerBundle"
+            "SoftUniBlogBundle\\": "src/SoftUniBlogBundle"
         },
         "classmap": [
             "app/AppKernel.php",
@@ -20,10 +20,11 @@
         ]
     },
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=5.5.9",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
+        "knplabs/knp-paginator-bundle": "^2.8",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
         "symfony/monolog-bundle": "^3.1.0",
